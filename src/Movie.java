@@ -36,6 +36,13 @@ public class Movie extends ArrayList implements Comparable<Movie> {
 
     }
 
+    public String toString(){
+        return "Movie title: " + title + "\n"
+                + "Lead Actor: " + actor + "\n"
+                + "Release Year: " +  year + "\n"
+                + "Genre: " + genre + "\n";
+    }
+
 
 }
 
