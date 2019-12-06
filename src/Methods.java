@@ -170,8 +170,7 @@ class Methods extends Movie{
     }
 
 
-    static Methods reverseMovies()
-    {
+    static Methods reverseMovies(){
         Methods reverseMovies = new Methods();
 
         for (int i = movieList.size() - 1; i >= 0; i--) {
@@ -200,49 +199,19 @@ class Methods extends Movie{
 
     }
 
-    void searchMovie() {
+    public String searchMovie(int searchType, String searchText) {
+        searchText = searchText.toLowerCase();
+        if (searchType == 1)
+            return searchMoviesByTitle(searchText).toString();
+        else if (searchType == 2)
+            return searchMoviesByActor(searchText).toString();
 
-        System.out.println("Search by:\n1. Title\n2. Lead Actor/Actress\n3. Release Year\n4. Genre");
-        boolean isValid = false;
-        int searchType = 0;
-        while (!isValid) {
-            while (!stdIn.hasNextInt()) {
-                System.out.println("Valid number not entered. Enter 1, 2, 3, or 4.");
-                stdIn.next();
-            }
-            searchType = stdIn.nextInt();
-            if (searchType != 1 && searchType != 2 && searchType != 3 && searchType != 4) {
-                System.out.println("Please select either 1, 2, or 3.");
-                continue;
-            }
-            isValid = true;
-        }
-        stdIn.nextLine();
-
-
-        if (searchType == 1) {
-            System.out.println("Please enter a movie title to search for.");
-            String titleSearch = stdIn.nextLine().toLowerCase();
-            System.out.println(searchMoviesByTitle(titleSearch));
-
-
-        } else if (searchType == 2) {
-            System.out.println("Please enter an actor or actress to search for");
-            String actorSearch = stdIn.nextLine().toLowerCase();
-            System.out.println(searchMoviesByActor(actorSearch));
-
-        } else if (searchType == 3) {
-            System.out.println("Please enter a release year to search.");
-            String yearSearch = stdIn.next().toLowerCase();
-            System.out.println(searchMoviesByYear(yearSearch));
-            Sorting.sortFound(stdIn, movieList);
-        } else {
-            System.out.println("Please enter a genre to search for.");
-            String genreSearch = stdIn.next();
-            System.out.println(searchMoviesByGenre(genreSearch));
-            Sorting.sortFound(stdIn, movieList);
-        }
+        else if (searchType == 3)
+            return searchMoviesByYear(searchText).toString();
+        else
+            return searchMoviesByGenre(searchText).toString();
     }
+
 
 }
 
