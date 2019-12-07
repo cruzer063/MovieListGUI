@@ -1,3 +1,4 @@
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -51,7 +52,7 @@ class Methods extends Movie{
         // size++;
     }
 
-    private void addMovies(String title, String actor, String year, String genre) {
+    public void addMovies(String title, String actor, String year, String genre) {
 
         movieList.add(new Movie(title, actor, year, genre));
         // size++;
@@ -78,6 +79,12 @@ class Methods extends Movie{
         if (movieFound) {
             movieFound(movieList.get(movieIndex));
         }
+        else {
+            String message = "Movie not found.";
+            JOptionPane.showMessageDialog(new JFrame(), message, "Sorry",
+                    JOptionPane.ERROR_MESSAGE);
+        }
+
 
         return movieList.get(movieIndex);
     }
@@ -140,25 +147,24 @@ class Methods extends Movie{
 
 
 
-    void removeMovie() {
+    public void removeMovie(int deleteMovie) {
         boolean nonValid= true;
         do {
 
             try {
-                System.out.println("Select number associated with movie to be removed");
-                int deleteMovie;
-                deleteMovie = Integer.parseInt(stdIn.nextLine());
                 getMovieList().remove(deleteMovie - 1);
-                System.out.println("Updated List:\n" + toString());
                 nonValid = false;
 
             } catch (IndexOutOfBoundsException e)
             {
-
-                System.out.println("Non valid Entry. Selection out of bound of list.");
+                String message = "Non valid Entry. Selection out of bound of list.";
+                JOptionPane.showMessageDialog(new JFrame(), message, "Error",
+                        JOptionPane.ERROR_MESSAGE);
 
             } catch (NumberFormatException nfe){
-                System.out.println("Non valid entry. Input must be a number.");
+                String message = "Non valid entry. Input must be a number.";
+                JOptionPane.showMessageDialog(new JFrame(), message, "Error",
+                        JOptionPane.ERROR_MESSAGE);
             }
 
         }   while (nonValid);
@@ -170,16 +176,14 @@ class Methods extends Movie{
     }
 
 
-    static Methods reverseMovies(){
-        Methods reverseMovies = new Methods();
-
+    static ArrayList<Movie> reverseMovies(ArrayList<Movie> movieList){
+        Methods me = new Methods();
+        me.removeAll();
         for (int i = movieList.size() - 1; i >= 0; i--) {
 
-
-            reverseMovies.addMovies(movieList.get(i));
+            me.addMovies(movieList.get(i));
         }
-
-        return reverseMovies;
+        return me.getMovieList();
     }
 
     public String toString(){
@@ -210,6 +214,9 @@ class Methods extends Movie{
             return searchMoviesByYear(searchText).toString();
         else
             return searchMoviesByGenre(searchText).toString();
+    }
+    public void removeAll(){
+        movieList.clear();
     }
 
 

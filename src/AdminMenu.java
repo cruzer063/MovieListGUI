@@ -1,8 +1,6 @@
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 
 public class AdminMenu extends JDialog {
     private JPanel contentPane;
@@ -22,6 +20,23 @@ public class AdminMenu extends JDialog {
     private JRadioButton genreRadioButton;
     private JRadioButton releaseYearRadioButton;
     private JButton enterButton;
+    private JTextField textField2;
+    private JTextField textField3;
+    private JTextField textField4;
+    private JTextField textField5;
+    private JButton addMovieButton1;
+    private JTextField titleTextField;
+    private JTextField leadActorActressTextField;
+    private JTextField genreTextField;
+    private JTextField releaseYearTextField;
+    private JTextField enterMovieNumberToTextField;
+    private JTextField textField7;
+    private JButton removeButton;
+    private JRadioButton quickSortRadioButton;
+    private JRadioButton bubbleSortRadioButton;
+    private JCheckBox aZCheckBox;
+    private JCheckBox zACheckBox;
+    private JButton sortButton1;
 
     public AdminMenu() {
 
@@ -74,6 +89,7 @@ public class AdminMenu extends JDialog {
                     genreRadioButton.setEnabled(true);
                     releaseYearRadioButton.setEnabled(true);
                     enterButton.setEnabled(true);
+                    textField1.setText("");
 
                 }
             }
@@ -113,36 +129,122 @@ public class AdminMenu extends JDialog {
                     textArea1.setText(Driver.methods.searchMovie(4, searchTest));
             }
         });
-        titleRadioButton.addMouseListener(new MouseAdapter() {
+        addMovieButton.addActionListener(new ActionListener() {
             @Override
-            public void mouseClicked(MouseEvent e) {
-                leadActorActressRadioButton.setSelected(false);
-                genreRadioButton.setSelected(false);
-                releaseYearRadioButton.setSelected(false);
+            public void actionPerformed(ActionEvent actionEvent) {
+                displayAllButton.setEnabled(false);
+                searchButton.setEnabled(false);
+                addMovieButton.setEnabled(false);
+                removeMovieButton.setEnabled(false);
+                sortButton.setEnabled(false);
+                textField2.setEnabled(true);
+                textField2.setEditable(true);
+                textField3.setEnabled(true);
+                textField3.setEditable(true);
+                textField4.setEnabled(true);
+                textField4.setEditable(true);
+                textField5.setEnabled(true);
+                textField5.setEditable(true);
+                addMovieButton1.setEnabled(true);
+                titleTextField.setEnabled(true);
+                leadActorActressTextField.setEnabled(true);
+                genreTextField.setEnabled(true);
+                releaseYearTextField.setEnabled(true);
             }
         });
-        leadActorActressRadioButton.addMouseListener(new MouseAdapter() {
+        addMovieButton1.addActionListener(new ActionListener() {
             @Override
-            public void mouseClicked(MouseEvent e) {
-                titleRadioButton.setSelected(false);
-                genreRadioButton.setSelected(false);
-                releaseYearRadioButton.setSelected(false);
+            public void actionPerformed(ActionEvent actionEvent) {
+                displayAllButton.setEnabled(true);
+                searchButton.setEnabled(true);
+                addMovieButton.setEnabled(true);
+                removeMovieButton.setEnabled(true);
+                sortButton.setEnabled(true);
+                textField2.setEnabled(false);
+                textField2.setEditable(false);
+                textField3.setEnabled(false);
+                textField3.setEditable(false);
+                textField4.setEnabled(false);
+                textField4.setEditable(false);
+                textField5.setEnabled(false);
+                textField5.setEditable(false);
+                addMovieButton1.setEnabled(false);
+                titleTextField.setEnabled(false);
+                leadActorActressTextField.setEnabled(false);
+                genreTextField.setEnabled(false);
+                releaseYearTextField.setEnabled(false);
+                Driver.methods.addMovies(textField2.getText(), textField3.getText(), textField4.getText(), textField5.getText());
+                textArea1.setText(Driver.methods.toString());
             }
         });
-        genreRadioButton.addMouseListener(new MouseAdapter() {
+        removeMovieButton.addActionListener(new ActionListener() {
             @Override
-            public void mouseClicked(MouseEvent e) {
-                titleRadioButton.setSelected(false);
-                leadActorActressRadioButton.setSelected(false);
-                releaseYearRadioButton.setSelected(false);
+            public void actionPerformed(ActionEvent actionEvent) {
+                textField7.setText("");
+                textArea1.setText(Driver.methods.toString());
+                displayAllButton.setEnabled(false);
+                searchButton.setEnabled(false);
+                addMovieButton.setEnabled(false);
+                removeMovieButton.setEnabled(false);
+                sortButton.setEnabled(false);
+                removeButton.setEnabled(true);
+                enterMovieNumberToTextField.setEnabled(true);
+                textField7.setEnabled(true);
+                textField7.setEditable(true);
             }
         });
-        releaseYearRadioButton.addMouseListener(new MouseAdapter() {
+        removeButton.addActionListener(new ActionListener() {
             @Override
-            public void mouseClicked(MouseEvent e) {
-                titleRadioButton.setSelected(false);
-                leadActorActressRadioButton.setSelected(false);
-                genreRadioButton.setSelected(false);
+            public void actionPerformed(ActionEvent actionEvent) {
+                displayAllButton.setEnabled(true);
+                searchButton.setEnabled(true);
+                addMovieButton.setEnabled(true);
+                removeMovieButton.setEnabled(true);
+                sortButton.setEnabled(true);
+                removeButton.setEnabled(false);
+                enterMovieNumberToTextField.setEnabled(false);
+                textField7.setEnabled(false);
+                textField7.setEditable(false);
+                Driver.methods.removeMovie(Integer.parseInt(textField7.getText()));
+                textArea1.setText(Driver.methods.toString());
+            }
+        });
+        sortButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                displayAllButton.setEnabled(false);
+                searchButton.setEnabled(false);
+                addMovieButton.setEnabled(false);
+                removeMovieButton.setEnabled(false);
+                sortButton.setEnabled(false);
+                sortButton1.setEnabled(true);
+                quickSortRadioButton.setEnabled(true);
+                bubbleSortRadioButton.setEnabled(true);
+                aZCheckBox.setEnabled(true);
+                zACheckBox.setEnabled(true);
+            }
+        });
+        sortButton1.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                displayAllButton.setEnabled(true);
+                searchButton.setEnabled(true);
+                addMovieButton.setEnabled(true);
+                removeMovieButton.setEnabled(true);
+                sortButton.setEnabled(true);
+                sortButton1.setEnabled(false);
+                quickSortRadioButton.setEnabled(false);
+                bubbleSortRadioButton.setEnabled(false);
+                aZCheckBox.setEnabled(false);
+                zACheckBox.setEnabled(false);
+                int sortType = 1, sortChoice = 1;
+                if (!quickSortRadioButton.isSelected())
+                    sortType = 0;
+
+                if (!aZCheckBox.isSelected())
+                    sortChoice = 0;
+
+                textArea1.setText(Driver.sortFound(sortType, sortChoice, Driver.movieList));
             }
         });
     }
