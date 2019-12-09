@@ -1,9 +1,9 @@
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 class Sorting extends Methods {
     Sorting (){}
-    private static boolean isValid;
 
     private static int partition(ArrayList<Movie> arr, int low, int high)
     {
@@ -12,14 +12,13 @@ class Sorting extends Methods {
         int i = (low-1);
         for (int j=low; j<high; j++)
         {
-
             if (arr.get(j).compareTo(pivot) < 0)
             {
 
                 i++;
 
 
-                swap(i,j);
+                swap(i,j, arr);
             }
 
         }
@@ -53,81 +52,41 @@ class Sorting extends Methods {
 
             for (j = 0; j < n-i-1; j++)
                 if (arr.get(j).compareTo(arr.get(j+1)) > 0)
-                    swap(j, j+1);
+                    swap(j, j+1, arr);
     }
-    private static void swap(int i, int j){
-        Movie temp = movieList.get(i);
-        movieList.set(i, movieList.get(j));
-        movieList.set(j, temp);
+    private static void swap(int i, int j, ArrayList<Movie> arr){
+        Movie temp = arr.get(i);
+        arr.set(i, arr.get(j));
+        arr.set(j, temp);
     }
 
-    static void sortFound(Scanner stdIn, ArrayList movieList) {
+    public static String sortFound(int sortType, int sortChoice, ArrayList<Movie> movieList) {
+        ArrayList<Movie> sortedMovieList = (ArrayList<Movie>) movieList.clone();
         if (movieList.size() != 0) {
-            int sortChoice = -1;
+            long time = sortMovies(sortType, sortedMovieList);
 
-            System.out.println("1. Quick Sort\n" +
-                    "2. Bubble Sort");
-
-
-            sortChoice = getSortChoice(stdIn, sortChoice);
-            long time = sortMovies(sortChoice);
-            isValid = false;
-            System.out.println("Enter 1 for A-Z or 2 for Z-A.");
-            while (!isValid) {
-                while (!stdIn.hasNextInt()) {
-                    System.out.println("Enter 1 for A-Z or 2 for Z-A.");
-                    stdIn.next();
-                }
-                sortChoice = stdIn.nextInt();
-                if (sortChoice != 1 && sortChoice != 2) {
-                    System.out.println("Please select either 1 or 2.");
-                    continue;
-                }
-                isValid = true;
-            }
-            if (sortChoice == 1) {
-                for (int i = 0; i < movieList.size(); i++) {
-                    System.out.printf("%s. %s\n", i+1, movieList.get(i));
-                }
-
-
-                System.out.println("List sorted in " + time + " nano seconds.");
-            } else {
-
-                System.out.println(Methods.reverseMovies().toString());
-                System.out.println("List sorted in " + time + " nano seconds.");
-
-            }
+            String message = "List sorted in " + time + " nano seconds.";
+            JOptionPane.showMessageDialog(new JFrame(), message, "Fun Fact",
+                    JOptionPane.INFORMATION_MESSAGE);
+            if (sortChoice == 1)
+                return sortedMovieList.toString();
+            else
+                return Methods.reverseMovies(sortedMovieList).toString();
         }
-    }
-
-    static int getSortChoice(Scanner stdIn, int sortChoice) {
-        while(!isValid) {
-            while (!stdIn.hasNextInt()) {
-                System.out.println("Number not entered. Enter 1 or 2.");
-                stdIn.next();
-            }
-            sortChoice = stdIn.nextInt();
-            if (sortChoice != 1 && sortChoice != 2) {
-                System.out.println("Select either 1 or 2.");
-                continue;
-            }
-            isValid = true;
-        }
-        return sortChoice;
+        return "No Movies to sort.";
     }
 
 
-    static long sortMovies(int i){
+    static long sortMovies(int i, ArrayList<Movie> sortedMovieList){
         long startTime;
         if (i == 1) {
             startTime = System.nanoTime();
-            quickSort(movieList, 0, movieList.size()-1);
+            quickSort(sortedMovieList, 0, sortedMovieList.size()-1);
             return System.nanoTime() - startTime;
         }
         else {
             startTime = System.nanoTime();
-            bubbleSort(movieList, movieList.size());
+            bubbleSort(sortedMovieList, sortedMovieList.size());
             return  System.nanoTime() - startTime;
         }
     }
